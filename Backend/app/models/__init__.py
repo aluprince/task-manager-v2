@@ -1,5 +1,6 @@
 from .user import User
 from .tasks import Tasks
+from .projects import Project
 from ..db import Base, engine
 
 # Creating all Tables in the database

@@ -1,0 +1,17 @@
+/* Tailwind handles most styling. Add custom tweaks here. */
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-md p-6;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.input {
+  @apply w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600;
+}

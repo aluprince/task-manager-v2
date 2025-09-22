@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager Dashboard</title>
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+<body class="luxury-dark">
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="logo">Task Manager</h2>  
+      <button id="themeToggle">🌙 Dark Mode</button>
+      <nav>
+        <ul>
+          <li data-section="projects">📂 Projects</li>
+          <li data-section="tasks">✅ Tasks</li>
+          <li data-section="goals">🎯 Goals</li>
+          <li data-section="settings">⚙️ Settings</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="content">
+      <!-- Sections will be dynamically injected -->
+    </main>
+  </div>
+
+  <script src="./js/theme.js"></script>
+  <script src="./js/dashboard.js"></script>
+</body>
+</html>

@@ -15,6 +15,8 @@ class User(Base):
     tasks = relationship("Tasks", back_populates="owner", cascade="all, delete-orphan")
     # Linking refresh token to the user
     refresh_token = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
+    # Linking each projects to the user
+    projects = relationship("Project", back_populates="owner")
 
 
 class RefreshToken(Base):

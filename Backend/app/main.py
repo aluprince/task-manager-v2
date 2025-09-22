@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import auth_routes, user_routes, tasks_routes
+from .routes import auth_routes, user_routes, tasks_routes, project_routes 
 
 app = FastAPI()
 load_dotenv(find_dotenv())
@@ -22,6 +22,7 @@ print(base_url)
 
 # Registering routes in my servers
 app.include_router(auth_routes.router)
+app.include_router(project_routes.router)
 
 
 @app.get("/")

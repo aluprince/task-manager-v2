@@ -3,22 +3,22 @@ from ..controllers.auth_controllers import register_user, login_user, get_curren
 from ..models import User
 from sqlalchemy.orm import Session
 from ..db import get_db
-from ..schemas.user_schema import UserCreate, LoginRequest
+from ..schemas.user_schema import UserCreate, LoginRequest, RegisterResponse, LoginResponse, currentUserSchema
 
 router = APIRouter(
     prefix="/api/auth", #We mount all authentication routes with /api/auth
     tags=["Auth"] #tags for swagger documentation
 )
 
-@router.get("/me", status_code=status.HTTP_200_OK)
-def get_me(user=Depends(get_current_user)):
+@router.get("/me", status_code=status.HTTP_200_OK, response_model=currentUserSchema)
+def get_me(user=Depends(get_current_user), db: Session=Depends(get_db)):
     return user
 
-@router.post("/register", status_code=status.HTTP_201_CREATED)
+@router.post("/register", status_code=status.HTTP_201_CREATED, response_model=RegisterResponse)
 def register(data: UserCreate, db: Session = Depends(get_db)):
     return register_user(data, db)
 
-@router.post("/login", status_code=status.HTTP_200_OK)
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=LoginResponse)
 def login(data: LoginRequest, response: Response, db: Session = Depends(get_db)):
     return login_user(data, response, db)
 
