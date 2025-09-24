@@ -12,6 +12,7 @@ class Project(Base):
     priority = Column(String, nullable=False) #1 means low, 2 means medium and 3 means high
     completed_project = Column(Boolean, default=False)
     deadline = Column(String, nullable=False)
+    is_deleted = Column(Boolean, default=False)
     # Linking each project to the user
     owner_id = Column(Integer, ForeignKey("users.id"))
     owner = relationship("User", back_populates="projects")

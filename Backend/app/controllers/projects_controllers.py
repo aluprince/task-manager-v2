@@ -41,40 +41,50 @@ def create_project(data, db):
     
 
 def get_all_projects(user_id, db):
-    user = db.query(User).filter(User.id == user_id).first()
-    print(user.name)
     try:
-        print(user.projects)
-        user.projects
-        return {"message": "Retrived user's task's successfully"}
+        project = db.query(Project).filter(Project.user_id == user_id).all()
+
+        if not project:
+            raise HTTPException(status_code=404, detail="No Project Found")
+        return {"projects": project}
     except SQLAlchemyError:
         raise HTTPException(status_code=500, detail="Database Error")
     
+
+# Incomplete function
 def get_specific_project(user_id, project_id, db):
-    user = db.query(User).filter(User.id == user_id).first()
-    print(user)
     try:
-        print(user.projects[project_id])
+        project = db.query(Project).filter(Project.id == project_id, Project.owner_id == user_id).first()
+        print(project)
         return {"message": "Retrived user's task's successfully"}
     except SQLAlchemyError:
         raise HTTPException(status_code=500, detail="Database Error")
     
-
-def update_project_title(user_id, project_id, project_update, db):
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="No User")
-
-    print(user)
+    
+def update_project(user_id, project_id, project_update, db):
     try:
-        project = user.projects[project_id].title()
+        project = db.query(Project).filter(Project.id == project_id, Project.owner_id == user_id).first()
+        if not project:
+            raise HTTPException(status_code=404, detail="No Project Found")
         update_project = project_update.dict(exclude_unset=True)
 
         for key, value in update_project.items():
-            setattr(project, key, value) 
-        
+            setattr(project, key, value)
+        return {"message": "Project Updated Successfully"}
     except SQLAlchemyError:
-        raise HTTPException(status_code=401, detail="Database Error")
+        raise HTTPException(status_code=500, detail="Database Error")
+
+
+def delete_project(user_id, project_id, db):
+    try:
+        project = db.query(Project).filter(Project.id == project_id, Project.owner_id == user_id).first()
+        project.is_deleted = True
+        db.add(project)
+        db.commit()
+        db.refresh(project)
+        return {"message": "Successfully Deleted, you can still undo project"}
+    except SQLAlchemyError:
+        raise HTTPException(status_code=500, detail="Database Error")
 
 
     
