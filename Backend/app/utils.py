@@ -12,6 +12,18 @@ JWT_ALG = os.getenv("JWT_ALG", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "15"))
 REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30"))
 
+def priority_checker(digit):
+    """ This Functions is to check if the priority digit is high, medium or low, it takes a digit as it's input from 1 to 3"""
+    try:
+        if digit == '1':
+            return "low"
+        elif digit == '2':
+            return "medium"
+        elif digit == '3':
+            return "high"
+    except ValueError:
+        return "Only Digits from 1 to 3"
+
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     """ This functions create an access token for authorization and authentication use"""
     to_encode = data.copy() #to take in user info

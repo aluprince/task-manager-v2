@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from ..controllers.projects_controllers import create_project, get_all_projects, get_specific_project
+from ..controllers.projects_controllers import create_project, get_all_projects, get_specific_project, update_project, delete_project
 from fastapi import Depends, APIRouter, status
-from ..schemas.projects_schema import ProjectCreate
+from ..schemas.projects_schema import ProjectCreate, ProjectUpdate
 from ..db import get_db
 
 
@@ -21,5 +21,18 @@ def get_projects(user_id: int, db: Session=Depends(get_db)):
 @router.get("/projects/{project_id}", status_code=status.HTTP_200_OK)
 def getSpecificProject(user_id: str, project_id: int, db: Session=Depends(get_db)):
     return get_specific_project(user_id, project_id, db)
+
+@router.patch("/projects/{project_id}", status_code=status.HTTP_200_OK)
+def update_project(user_id: int, project_id: int, project_update: ProjectUpdate, db: Session=Depends(get_db)):
+    return update_project(user_id, project_id, project_update, db)
+
+@router.delete("/projects/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete(user_id: int, project_id: int, db: Session=Depends(get_db)):
+    return delete_project(user_id, project_id, db)
+
+
+
+
+
 
 

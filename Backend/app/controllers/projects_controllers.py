@@ -2,19 +2,7 @@ from fastapi import HTTPException
 from ..models.projects import Project
 from ..models.user import User
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
-
-
-def priority_checker(digit):
-    """ This Functions is to check if the priority digit is high, medium or low, it takes a digit as it's input from 1 to 3"""
-    try:
-        if digit == '1':
-            return "low"
-        elif digit == '2':
-            return "medium"
-        elif digit == '3':
-            return "high"
-    except ValueError:
-        return "Only Digits from 1 to 3"
+from ..utils import priority_checker
 
 
 def create_project(data, db):
